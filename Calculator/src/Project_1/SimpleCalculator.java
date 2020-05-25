@@ -157,76 +157,6 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			display.setText(""); // Off
 			// display2.setText("");
 		}
-		else if (source == add && !displayText.equals("ERROR")) {
-			operator = "+";
-			Operator();
-		}
-		else if (source == subtract && !displayText.equals("ERROR")) {
-			operator = "-";
-			Operator();
-		}
-		else if (source == multiply && !displayText.equals("ERROR")) {
-			operator = "*";
-			Operator();
-		}
-		else if (source == divide && !displayText.equals("ERROR")) {
-			operator = "/";
-			Operator();
-		}
-		else if (source == root && !displayText.equals("ERROR")) {
-			operator = "root";
-			Operator();
-		}
-		else if (source == power && !displayText.equals("ERROR")) {
-			operator = "power";
-			Operator();
-		}
-		else if (source == equal && !displayText.equals("ERROR")) {
-			try {
-				num2 = Double.parseDouble(displayText);
-				String result; 
-				if (operator.equals("+")) {
-					num1 = num1 + num2;
-				}
-				else if (operator.equals("-")) {
-					num1 = num1 - num2;
-				}
-				else if (operator.equals("*")) {
-					num1 = num1 * num2;
-				}
-				else if (operator.equals("/")) {
-					if (num2 == 0) {
-						throw new DivideByZeroException();
-					}
-					num1 = num1 / num2;
-				}
-				else if (operator.equals("root")) {
-					num1 = Math.pow(num1, 1.0 / num2);
-				}
-				else if (operator.equals("power")) {
-					num1 = Math.pow(num1, num2);
-				}
-				
-				if (num1 > 999999999 || num2 < -999999999) {
-					throw new OutOfRangeException();
-				}
-				result = Reformat();
-				display.setText(result);
-				operator = "";
-			}
-			catch (DivideByZeroException | OutOfRangeException e) {
-				display.setText("ERROR");
-			}
-		}
-		else if (source == clear && !displayText.equals("ERROR")) {
-			if (!displayText.contains("") || !displayText.contains("0")) {
-				displayText = displayText.substring(0, displayText.length() - 1);
-				display.setText(displayText);
-			}
-		}
-		else if (source == allClear) {
-			display.setText("0");
-		}
 		
 		try {
 			/** Sometimes text cannot be converted to number.  */
@@ -283,6 +213,76 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			}
 			else if (source == pi && checkNumber(displayValue)) {
 				display.setText("3.14159265");
+			}
+			else if (source == add && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+				operator = "+";
+				Operator();
+			}
+			else if (source == subtract && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+				operator = "-";
+				Operator();
+			}
+			else if (source == multiply && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+				operator = "*";
+				Operator();
+			}
+			else if (source == divide && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+				operator = "/";
+				Operator();
+			}
+			else if (source == root && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+				operator = "root";
+				Operator();
+			}
+			else if (source == power && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+				operator = "power";
+				Operator();
+			}
+			else if (source == clear && !displayText.equals("ERROR")) {
+				if (!displayText.contains("") || !displayText.contains("0")) {
+					displayText = displayText.substring(0, displayText.length() - 1);
+					display.setText(displayText);
+				}
+			}
+			else if (source == allClear && !displayText.equals("")) {
+				display.setText("0");
+			}
+			else if (source == equal && !displayText.equals("ERROR")) {
+				try {
+					num2 = Double.parseDouble(displayText);
+					String result; 
+					if (operator.equals("+")) {
+						num1 = num1 + num2;
+					}
+					else if (operator.equals("-")) {
+						num1 = num1 - num2;
+					}
+					else if (operator.equals("*")) {
+						num1 = num1 * num2;
+					}
+					else if (operator.equals("/")) {
+						if (num2 == 0) {
+							throw new DivideByZeroException();
+						}
+						num1 = num1 / num2;
+					}
+					else if (operator.equals("root")) {
+						num1 = Math.pow(num1, 1.0 / num2);
+					}
+					else if (operator.equals("power")) {
+						num1 = Math.pow(num1, num2);
+					}
+					
+					if (num1 > 999999999 || num2 < -999999999) {
+						throw new OutOfRangeException();
+					}
+					result = Reformat();
+					display.setText(result);
+					operator = "";
+				}
+				catch (DivideByZeroException | OutOfRangeException e) {
+					display.setText("ERROR");
+				}
 			}
 		}
 		catch (NumberFormatException e) {
