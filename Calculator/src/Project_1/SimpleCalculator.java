@@ -223,31 +223,31 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			else if (source == pi && checkNumber(displayValue)) {
 				display.setText("3.14159265");
 			}
-			else if (source == add && isOn(displayText)) {
+			else if (source == add && isWorking(displayText)) {
 				operator = "+";
 				Operator();
 			}
-			else if (source == subtract && isOn(displayText)) {
+			else if (source == subtract && isWorking(displayText)) {
 				operator = "-";
 				Operator();
 			}
-			else if (source == multiply && isOn(displayText)) {
+			else if (source == multiply && isWorking(displayText)) {
 				operator = "*";
 				Operator();
 			}
-			else if (source == divide && isOn(displayText)) {
+			else if (source == divide && isWorking(displayText)) {
 				operator = "/";
 				Operator();
 			}
-			else if (source == root && isOn(displayText)) {
+			else if (source == root && isWorking(displayText)) {
 				operator = "root";
 				Operator();
 			}
-			else if (source == power && isOn(displayText)) {
+			else if (source == power && isWorking(displayText)) {
 				operator = "power";
 				Operator();
 			}
-			else if (source == equal && isOn(displayText)) {
+			else if (source == equal && isWorking(displayText)) {
 				try {
 					num2 = Double.parseDouble(displayText);
 					String result; 
@@ -284,7 +284,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 					display.setText("ERROR");
 				}
 			}
-			else if (source == clear &&  isOn(displayText)) {
+			else if (source == clear &&  isWorking(displayText)) {
 				if (displayValue > -10 && displayValue < 10) {
 					display.setText("0");
 				}
@@ -331,7 +331,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 	
 	
 	/** Checks if calculator is on.  */
-	public boolean isOn(String displayText) {
+	public boolean isWorking(String displayText) {
 		if (!displayText.equals("ERROR") || !displayText.equals("")) {
 			return true;
 		}
