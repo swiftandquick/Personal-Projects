@@ -166,7 +166,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 		
 		try {
 			/** Sometimes text cannot be converted to number.  */
-			double displayValue = Double.parseDouble(display.getText());
+			double displayValue = Double.parseDouble(displayText);
 
 			if (source == zero && displayValue <= 999999999 && displayValue >= -999999999) {
 				if (!displayText.equals("0") && operator.equals("")) {
