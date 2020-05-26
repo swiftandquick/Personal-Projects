@@ -273,7 +273,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 						num1 = Math.pow(num1, num2);
 					}
 					
-					if (num1 > 999999999 || num2 < -999999999) {
+					if (num1 > 999999999 || num1 < -999999999) {
 						throw new OutOfRangeException();
 					}
 					result = Reformat();
@@ -284,7 +284,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 					display.setText("ERROR");
 				}
 			}
-			else if (source == clear &&  isWorking(displayText)) {
+			else if (source == clear && isWorking(displayText)) {
 				if (displayValue > -10 && displayValue < 10) {
 					display.setText("0");
 				}
