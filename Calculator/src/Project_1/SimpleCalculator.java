@@ -47,6 +47,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 	double num1;
 	double num2;
 	
+	
 	SimpleCalculator() {
 		super("Simple Calculator");
 		setSize(300, 500);
@@ -62,9 +63,6 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 		display.setFont(font);
 		display.setEnabled(false);
 		row1.add(display);
-		// display2.setFont(font);
-		// display2.setEnabled(false);
-		// row1.add(display2);
 		add(row1);
 		
 		JPanel row2 = new JPanel();
@@ -144,6 +142,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 		add(row7);
 	}
 
+	
 	public void actionPerformed(ActionEvent event) {
 		Object source = event.getSource();
 		
@@ -210,10 +209,14 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 				}
 			}
 			else if (source == negPos && checkNumber(displayValue)) {
-				if (!displayText.contains("-")) {
+				if (displayText.equals("0")) {
+					// Do nothing.  
+				}
+				// Positive to negative.  
+				else if (!displayText.contains("-")) {
 					display.setText("-" + displayText);
 				}
-				else {
+				else { // Negative to positive.  
 					displayText = displayText.replace("-", "");
 					display.setText(displayText);
 				}
@@ -221,31 +224,31 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			else if (source == pi && checkNumber(displayValue)) {
 				display.setText("3.14159265");
 			}
-			else if (source == add && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+			else if (source == add && isOn(displayText)) {
 				operator = "+";
 				Operator();
 			}
-			else if (source == subtract && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+			else if (source == subtract && isOn(displayText)) {
 				operator = "-";
 				Operator();
 			}
-			else if (source == multiply && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+			else if (source == multiply && isOn(displayText)) {
 				operator = "*";
 				Operator();
 			}
-			else if (source == divide && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+			else if (source == divide && isOn(displayText)) {
 				operator = "/";
 				Operator();
 			}
-			else if (source == root && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+			else if (source == root && isOn(displayText)) {
 				operator = "root";
 				Operator();
 			}
-			else if (source == power && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+			else if (source == power && isOn(displayText)) {
 				operator = "power";
 				Operator();
 			}
-			else if (source == equal && !displayText.equals("ERROR")) {
+			else if (source == equal && isOn(displayText)) {
 				try {
 					num2 = Double.parseDouble(displayText);
 					String result; 
@@ -282,8 +285,8 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 					display.setText("ERROR");
 				}
 			}
-			else if (source == clear && (!displayText.equals("ERROR") || !displayText.equals(""))) {
-				if (displayValue > -10 || displayValue < 10) {
+			else if (source == clear &&  isOn(displayText)) {
+				if (displayValue > -10 && displayValue < 10) {
 					display.setText("0");
 				}
 				else {
@@ -325,6 +328,17 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			return false;
 		}
 		
+	}
+	
+	
+	/** Checks if calculator is on.  */
+	public boolean isOn(String displayText) {
+		if (!displayText.equals("ERROR") || !displayText.equals("")) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	
@@ -397,5 +411,6 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 		SimpleCalculator frame = new SimpleCalculator();
 		frame.setVisible(true);
 	}
+	
 	
 }
