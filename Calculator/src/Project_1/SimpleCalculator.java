@@ -358,7 +358,6 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 	public void Operator() {
 		String displayText = display.getText(); 
 		num1 = Double.parseDouble(displayText);	
-		// display2.setText(operator); 
 		display.setText("0");
 	}
 	
