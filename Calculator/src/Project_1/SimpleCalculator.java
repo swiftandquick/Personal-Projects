@@ -169,10 +169,10 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			double displayValue = Double.parseDouble(displayText);
 
 			if (source == zero && displayValue <= 999999999 && displayValue >= -999999999) {
-				if (!displayText.equals("0") && operator.equals("")) {
+				if (!displayText.equals("0")) {
 					display.setText(displayText + 0);
 				}
-				else if (!operator.equals("")) {
+				else if (displayText.equals("0")) {
 					display.setText("0");
 				}
 			}
