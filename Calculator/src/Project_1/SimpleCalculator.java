@@ -330,7 +330,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 	}
 	
 	
-	/** Checks if calculator is on.  */
+	/** Checks if calculator is working.  */
 	public boolean isWorking(String displayText) {
 		if (!displayText.equals("ERROR") || !displayText.equals("")) {
 			return true;
