@@ -153,9 +153,16 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			display.setText("0"); // On
 		}
 		else if (source == onOff && !displayText.equals("")) {
-		// else if (source == onOff && (!displayText.equals("") || !display2.getText().equals(""))) {
 			display.setText(""); // Off
-			// display2.setText("");
+			num1 = 0;
+			num2 = 0;
+			operator = "";
+		}
+		else if (source == allClear && !displayText.equals("")) {
+			display.setText("0");
+			num1 = 0;
+			num2 = 0;
+			operator = "";
 		}
 		
 		try {
@@ -238,15 +245,6 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 				operator = "power";
 				Operator();
 			}
-			else if (source == clear && !displayText.equals("ERROR")) {
-				if (!displayText.contains("") || !displayText.contains("0")) {
-					displayText = displayText.substring(0, displayText.length() - 1);
-					display.setText(displayText);
-				}
-			}
-			else if (source == allClear && !displayText.equals("")) {
-				display.setText("0");
-			}
 			else if (source == equal && !displayText.equals("ERROR")) {
 				try {
 					num2 = Double.parseDouble(displayText);
@@ -284,8 +282,17 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 					display.setText("ERROR");
 				}
 			}
+			else if (source == clear && (!displayText.equals("ERROR") || !displayText.equals(""))) {
+				if (displayValue > -10 || displayValue < 10) {
+					display.setText("0");
+				}
+				else {
+					displayText = displayText.substring(0, displayText.length() - 1);
+					display.setText(displayText);
+				}
+			}
 		}
-		catch (NumberFormatException e) {
+		catch (Exception e) {
 			// Do nothing.  
 		}
 		
@@ -344,36 +351,39 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 	
 	
 	public String Reformat() {
-		if (num1 < 10) {
-			DecimalFormat df = new DecimalFormat(".00000000");
+		if (num1 == 0) {
+			return "0";
+		}
+		else if (num1 < 10) {
+			DecimalFormat df = new DecimalFormat("0.00000000");
 			return df.format(num1);
 		}
 		else if (num1 < 100) {
-			DecimalFormat df = new DecimalFormat(".0000000");
+			DecimalFormat df = new DecimalFormat("0.0000000");
 			return df.format(num1);
 		}
 		else if (num1 < 1000) {
-			DecimalFormat df = new DecimalFormat(".000000");
+			DecimalFormat df = new DecimalFormat("0.000000");
 			return df.format(num1);
 		}
 		else if (num1 < 10000) {
-			DecimalFormat df = new DecimalFormat(".00000");
+			DecimalFormat df = new DecimalFormat("0.00000");
 			return df.format(num1);
 		}
 		else if (num1 < 100000) {
-			DecimalFormat df = new DecimalFormat(".0000");
+			DecimalFormat df = new DecimalFormat("0.0000");
 			return df.format(num1);
 		}
 		else if (num1 < 1000000) {
-			DecimalFormat df = new DecimalFormat(".000");
+			DecimalFormat df = new DecimalFormat("0.000");
 			return df.format(num1);
 		}
 		else if (num1 < 10000000) {
-			DecimalFormat df = new DecimalFormat(".00");
+			DecimalFormat df = new DecimalFormat("0.00");
 			return df.format(num1);
 		}
 		else if (num1 < 100000000) {
-			DecimalFormat df = new DecimalFormat(".0");
+			DecimalFormat df = new DecimalFormat("0.0");
 			return df.format(num1);
 		}
 		else { // if (num1 < 1000000000)
