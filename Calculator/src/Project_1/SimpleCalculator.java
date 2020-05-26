@@ -203,10 +203,8 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			else if (source == nine && checkNumber(displayValue)) {
 				displayChange(9);
 			}
-			else if (source == point && checkNumber(displayValue)) {
-				if (!displayText.contains(".")) {
-					display.setText(displayText + ".");
-				}
+			else if ((source == point && checkNumber(displayValue)) || !displayText.contains(".")) {
+				display.setText(displayText + ".");
 			}
 			else if (source == negPos && checkNumber(displayValue)) {
 				if (displayText.equals("0")) {
