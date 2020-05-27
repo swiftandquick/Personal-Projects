@@ -279,6 +279,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 					result = Reformat();
 					display.setText(result);
 					operator = "";
+					clear.setEnabled(false);
 				}
 				catch (DivideByZeroException | OutOfRangeException e) {
 					display.setText("ERROR");
@@ -293,6 +294,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 					display.setText(displayText);
 				}
 			}
+			
 		}
 		catch (Exception e) {
 			// Do nothing.  
@@ -359,49 +361,69 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 		String displayText = display.getText(); 
 		num1 = Double.parseDouble(displayText);	
 		display.setText("0");
+		clear.setEnabled(true);
 	}
 	
 	
 	public String Reformat() {
-		if (num1 == 0) {
-			return "0";
-		}
-		else if (num1 < 10) {
+		
+		String num9d;
+		
+		if (num1 < 10) {
 			DecimalFormat df = new DecimalFormat("0.00000000");
-			return df.format(num1);
+			num9d = df.format(num1);
 		}
 		else if (num1 < 100) {
 			DecimalFormat df = new DecimalFormat("0.0000000");
-			return df.format(num1);
+			num9d = df.format(num1);
 		}
 		else if (num1 < 1000) {
 			DecimalFormat df = new DecimalFormat("0.000000");
-			return df.format(num1);
+			num9d = df.format(num1);
 		}
 		else if (num1 < 10000) {
 			DecimalFormat df = new DecimalFormat("0.00000");
-			return df.format(num1);
+			num9d = df.format(num1);
 		}
 		else if (num1 < 100000) {
 			DecimalFormat df = new DecimalFormat("0.0000");
-			return df.format(num1);
+			num9d = df.format(num1);
 		}
 		else if (num1 < 1000000) {
 			DecimalFormat df = new DecimalFormat("0.000");
-			return df.format(num1);
+			num9d = df.format(num1);
 		}
 		else if (num1 < 10000000) {
 			DecimalFormat df = new DecimalFormat("0.00");
-			return df.format(num1);
+			num9d = df.format(num1);
 		}
 		else if (num1 < 100000000) {
 			DecimalFormat df = new DecimalFormat("0.0");
-			return df.format(num1);
+			num9d = df.format(num1);
 		}
 		else { // if (num1 < 1000000000)
 			DecimalFormat df = new DecimalFormat("0");
-			return df.format(num1);
+			num9d = df.format(num1);
 		}
+		
+		String[] num9dSplit = num9d.split(".", 2);
+		String num9dWhole = num9dSplit[0];
+		String num9dFractions = num9dSplit[1];
+		for (int i = (num9dFractions.length() - 1); i >= 0; i--) {
+			if (num9dFractions.charAt(i) == '0') {
+				num9dFractions = num9dFractions.substring(0, i);
+			}
+			else {
+				break;
+			}
+		}
+		
+		String numFinal = num9dWhole + "." + num9dFractions;
+		if (numFinal.charAt(numFinal.length() - 1) == '.') {
+			numFinal = numFinal.substring(0, numFinal.length() - 1);
+		}
+		
+		return numFinal;
 	}
 	
 	
