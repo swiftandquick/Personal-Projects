@@ -225,26 +225,56 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			}
 			else if (source == add && isWorking(displayText)) {
 				operator = "+";
+				subtract.setEnabled(false);
+				multiply.setEnabled(false);
+				divide.setEnabled(false);
+				root.setEnabled(false);
+				power.setEnabled(false);
 				Operator();
 			}
 			else if (source == subtract && isWorking(displayText)) {
 				operator = "-";
+				add.setEnabled(false);
+				multiply.setEnabled(false);
+				divide.setEnabled(false);
+				root.setEnabled(false);
+				power.setEnabled(false);
 				Operator();
 			}
 			else if (source == multiply && isWorking(displayText)) {
 				operator = "*";
+				add.setEnabled(false);
+				subtract.setEnabled(false);
+				divide.setEnabled(false);
+				root.setEnabled(false);
+				power.setEnabled(false);
 				Operator();
 			}
 			else if (source == divide && isWorking(displayText)) {
 				operator = "/";
+				add.setEnabled(false);
+				subtract.setEnabled(false);
+				multiply.setEnabled(false);
+				root.setEnabled(false);
+				power.setEnabled(false);
 				Operator();
 			}
 			else if (source == root && isWorking(displayText)) {
 				operator = "root";
+				add.setEnabled(false);
+				subtract.setEnabled(false);
+				multiply.setEnabled(false);
+				divide.setEnabled(false);
+				power.setEnabled(false);
 				Operator();
 			}
 			else if (source == power && isWorking(displayText)) {
 				operator = "power";
+				add.setEnabled(false);
+				subtract.setEnabled(false);
+				multiply.setEnabled(false);
+				divide.setEnabled(false);
+				root.setEnabled(false);
 				Operator();
 			}
 			else if (source == equal && isWorking(displayText)) {
@@ -279,6 +309,12 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 					result = Reformat();
 					display.setText(result);
 					operator = "";
+					add.setEnabled(true);
+					subtract.setEnabled(true);
+					multiply.setEnabled(true);
+					divide.setEnabled(true);
+					root.setEnabled(true);
+					power.setEnabled(true);
 					clear.setEnabled(false);
 				}
 				catch (DivideByZeroException | OutOfRangeException e) {
