@@ -260,46 +260,50 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 						Operator();
 						break;
 					case "=":
-						try {
-							num2 = Double.parseDouble(displayText);
-							String result; 
-							switch(operator) {
-								case "+":
-									num1 = num1 + num2;
-									break;
-								case "-":
-									num1 = num1 - num2;
-									break;
-								case "*":
-									num1 = num1 * num2;
-									break;
-								case "/":
-									if (num2 == 0) {
-										throw new DivideByZeroException();
-									}
-									num1 = num1 / num2;
-									break;
-								case "root":
-									num1 = Math.pow(num1, 1.0 / num2);
-									break;
-								case "power":
-									num1 = Math.pow(num1, num2);
-									break;
-								default:
-									// Do nothing.  
-									break; 
+						if (operator.equals("+") || operator.equals("-") || 
+							operator.equals("*") || operator.equals("/") || 
+							operator.equals("root") || operator.equals("power")) {
+							try {
+								num2 = Double.parseDouble(displayText);
+								String result; 
+								switch(operator) {
+									case "+":
+										num1 = num1 + num2;
+										break;
+									case "-":
+										num1 = num1 - num2;
+										break;
+									case "*":
+										num1 = num1 * num2;
+										break;
+									case "/":
+										if (num2 == 0) {
+											throw new DivideByZeroException();
+										}
+										num1 = num1 / num2;
+										break;
+									case "root":
+										num1 = Math.pow(num1, 1.0 / num2);
+										break;
+									case "power":
+										num1 = Math.pow(num1, num2);
+										break;
+									default:
+										// Do nothing.  
+										break; 
+								}
+								if (num1 > 999999999 || num1 < -999999999) {
+									throw new OutOfRangeException();
+								}
+								result = Reformat();
+								display.setText(result);
+								Reset();
+								clear.setEnabled(false);
+								equal.setEnabled(false);
 							}
-							if (num1 > 999999999 || num1 < -999999999) {
-								throw new OutOfRangeException();
+							catch (DivideByZeroException | OutOfRangeException e) {
+								display.setText("ERROR");
 							}
-							result = Reformat();
-							display.setText(result);
-							Reset();
-							clear.setEnabled(false);
-							equal.setEnabled(false);
-						}
-						catch (DivideByZeroException | OutOfRangeException e) {
-							display.setText("ERROR");
 						}
 						break;
 					case "C":
