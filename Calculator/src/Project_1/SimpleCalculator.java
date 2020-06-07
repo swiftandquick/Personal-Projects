@@ -145,189 +145,174 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		Object source = event.getSource();
+		String cmd = event.getActionCommand();
 		
 		String displayText = display.getText();
 
-		if (source == onOff && displayText.equals("")) {
+		if (cmd.equals("On / Off") && displayText.equals("")) {
 			display.setText("0"); // On
 		}
-		else if (source == onOff && !displayText.equals("")) {
+		else if (cmd.equals("On / Off") && !displayText.equals("")) {
 			display.setText(""); // Off
-			num1 = 0;
-			num2 = 0;
-			operator = "";
+			Reset();
+			clear.setEnabled(true);
 		}
-		else if (source == allClear && !displayText.equals("")) {
+		else if (cmd.equals("AC")  && !displayText.equals("")) {
 			display.setText("0");
-			num1 = 0;
-			num2 = 0;
-			operator = "";
+			Reset();
+			clear.setEnabled(false);
 		}
 		
 		try {
 			/** Sometimes text cannot be converted to number.  */
 			double displayValue = Double.parseDouble(displayText);
 
-			if (source == zero && displayValue <= 999999999 && displayValue >= -999999999) {
-				if (!displayText.equals("0")) {
-					display.setText(displayText + 0);
-				}
-				else if (displayText.equals("0")) {
-					display.setText("0");
-				}
-			}
-			else if (source == one && checkNumber(displayValue)) {
-				displayChange(1);
-			}
-			else if (source == two && checkNumber(displayValue)) {
-				displayChange(2);
-			}
-			else if (source == three && checkNumber(displayValue)) {
-				displayChange(3);
-			}
-			else if (source == four && checkNumber(displayValue)) {
-				displayChange(4);
-			}
-			else if (source == five && checkNumber(displayValue)) {
-				displayChange(5);
-			}
-			else if (source == six && checkNumber(displayValue)) {
-				displayChange(6);
-			}
-			else if (source == seven && checkNumber(displayValue)) {
-				displayChange(7);
-			}
-			else if (source == eight && checkNumber(displayValue)) {
-				displayChange(8);
-			}
-			else if (source == nine && checkNumber(displayValue)) {
-				displayChange(9);
-			}
-			else if ((source == point && checkNumber(displayValue)) || !displayText.contains(".")) {
-				display.setText(displayText + ".");
-			}
-			else if (source == negPos && checkNumber(displayValue)) {
-				if (displayText.equals("0")) {
-					// Do nothing.  
-				}
-				// Positive to negative.  
-				else if (!displayText.contains("-")) {
-					display.setText("-" + displayText);
-				}
-				else { // Negative to positive.  
-					displayText = displayText.replace("-", "");
-					display.setText(displayText);
-				}
-			}
-			else if (source == pi && checkNumber(displayValue)) {
-				display.setText("3.14159265");
-			}
-			else if (source == add && isWorking(displayText)) {
-				operator = "+";
-				subtract.setEnabled(false);
-				multiply.setEnabled(false);
-				divide.setEnabled(false);
-				root.setEnabled(false);
-				power.setEnabled(false);
-				Operator();
-			}
-			else if (source == subtract && isWorking(displayText)) {
-				operator = "-";
-				add.setEnabled(false);
-				multiply.setEnabled(false);
-				divide.setEnabled(false);
-				root.setEnabled(false);
-				power.setEnabled(false);
-				Operator();
-			}
-			else if (source == multiply && isWorking(displayText)) {
-				operator = "*";
-				add.setEnabled(false);
-				subtract.setEnabled(false);
-				divide.setEnabled(false);
-				root.setEnabled(false);
-				power.setEnabled(false);
-				Operator();
-			}
-			else if (source == divide && isWorking(displayText)) {
-				operator = "/";
-				add.setEnabled(false);
-				subtract.setEnabled(false);
-				multiply.setEnabled(false);
-				root.setEnabled(false);
-				power.setEnabled(false);
-				Operator();
-			}
-			else if (source == root && isWorking(displayText)) {
-				operator = "root";
-				add.setEnabled(false);
-				subtract.setEnabled(false);
-				multiply.setEnabled(false);
-				divide.setEnabled(false);
-				power.setEnabled(false);
-				Operator();
-			}
-			else if (source == power && isWorking(displayText)) {
-				operator = "power";
-				add.setEnabled(false);
-				subtract.setEnabled(false);
-				multiply.setEnabled(false);
-				divide.setEnabled(false);
-				root.setEnabled(false);
-				Operator();
-			}
-			else if (source == equal && isWorking(displayText)) {
-				try {
-					num2 = Double.parseDouble(displayText);
-					String result; 
-					if (operator.equals("+")) {
-						num1 = num1 + num2;
-					}
-					else if (operator.equals("-")) {
-						num1 = num1 - num2;
-					}
-					else if (operator.equals("*")) {
-						num1 = num1 * num2;
-					}
-					else if (operator.equals("/")) {
-						if (num2 == 0) {
-							throw new DivideByZeroException();
+			if (checkNumber(displayValue)) {
+				
+				switch(cmd) {
+					case "0":
+						if (!displayText.equals("0")) {
+							display.setText(displayText + 0);
 						}
-						num1 = num1 / num2;
-					}
-					else if (operator.equals("root")) {
-						num1 = Math.pow(num1, 1.0 / num2);
-					}
-					else if (operator.equals("power")) {
-						num1 = Math.pow(num1, num2);
-					}
-					
-					if (num1 > 999999999 || num1 < -999999999) {
-						throw new OutOfRangeException();
-					}
-					result = Reformat();
-					display.setText(result);
-					operator = "";
-					add.setEnabled(true);
-					subtract.setEnabled(true);
-					multiply.setEnabled(true);
-					divide.setEnabled(true);
-					root.setEnabled(true);
-					power.setEnabled(true);
-					clear.setEnabled(false);
+						else if (displayText.equals("0")) {
+							display.setText("0");
+						}
+						break;
+					case "1":
+						displayChange(1);
+						break;
+					case "2":
+						displayChange(2);
+						break;
+					case "3":
+						displayChange(3);
+						break;
+					case "4":
+						displayChange(4);
+						break;
+					case "5":
+						displayChange(5);
+						break;
+					case "6":
+						displayChange(6);
+						break;
+					case "7":
+						displayChange(7);
+						break;
+					case "8":
+						displayChange(8);
+						break;
+					case "9":
+						displayChange(9);
+						break;
+					case ".":
+						if (!displayText.contains(".")) {
+							display.setText(displayText + ".");
+						}
+						break;
+					case "+/-":
+						if (displayText.equals("0")) {
+							// Do nothing.  
+						}
+						// Positive to negative.  
+						else if (!displayText.contains("-")) {
+							display.setText("-" + displayText);
+						}
+						else { // Negative to positive.  
+							displayText = displayText.replace("-", "");
+							display.setText(displayText);
+						}
+						break;
+					case "\u03C0":
+						display.setText("3.14159265");
+						break;
+					default:
+						// Do nothing.  
+						break;
 				}
-				catch (DivideByZeroException | OutOfRangeException e) {
-					display.setText("ERROR");
-				}
+				
 			}
-			else if (source == clear && isWorking(displayText)) {
-				if (displayValue > -10 && displayValue < 10) {
-					display.setText("0");
-				}
-				else {
-					displayText = displayText.substring(0, displayText.length() - 1);
-					display.setText(displayText);
+			
+			if (isWorking(displayText)) {
+				switch(cmd) {
+					case "+":
+						operator = "+";
+						Operator();
+						break;
+					case "-":
+						operator = "-";
+						Operator();
+						break;
+					case "*":
+						operator = "*";
+						Operator();
+						break;
+					case "/":
+						operator = "/";
+						Operator();
+						break;
+					case "\u221A":
+						operator = "root";
+						Operator();
+						break;
+					case "a^b":
+						operator = "power";
+						Operator();
+						break;
+					case "=":
+						try {
+							num2 = Double.parseDouble(displayText);
+							String result; 
+							switch(operator) {
+								case "+":
+									num1 = num1 + num2;
+									break;
+								case "-":
+									num1 = num1 - num2;
+									break;
+								case "*":
+									num1 = num1 * num2;
+									break;
+								case "/":
+									if (num2 == 0) {
+										throw new DivideByZeroException();
+									}
+									num1 = num1 / num2;
+									break;
+								case "root":
+									num1 = Math.pow(num1, 1.0 / num2);
+									break;
+								case "power":
+									num1 = Math.pow(num1, num2);
+									break;
+								default:
+									// Do nothing.  
+									break; 
+							}
+							if (num1 > 999999999 || num1 < -999999999) {
+								throw new OutOfRangeException();
+							}
+							result = Reformat();
+							display.setText(result);
+							Reset();
+							clear.setEnabled(false);
+							equal.setEnabled(false);
+						}
+						catch (DivideByZeroException | OutOfRangeException e) {
+							display.setText("ERROR");
+						}
+						break;
+					case "C":
+						if (displayValue > -10 && displayValue < 10) {
+							display.setText("0");
+						}
+						else {
+							displayText = displayText.substring(0, displayText.length() - 1);
+							display.setText(displayText);
+						}
+					default:
+						// Do nothing.  
+						break;
 				}
 			}
 			
@@ -339,6 +324,20 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 	}
 	
 	
+	public void Reset() {
+		num1 = 0;
+		num2 = 0;
+		operator = "";
+		add.setEnabled(true);
+		subtract.setEnabled(true);
+		multiply.setEnabled(true);
+		divide.setEnabled(true);
+		root.setEnabled(true);
+		power.setEnabled(true);
+		equal.setEnabled(true);
+	}
+	
+	
 	public boolean checkNumber(double displayValue) {
 
 		String displayText = display.getText();
@@ -347,11 +346,11 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 		int numberCount = 1;
 		
 		for (int i = 0; i < dtCharArray.length; i++) {
-			if (dtCharArray[i] == '0' || dtCharArray[i] == '1' || dtCharArray[i] == '2'
-					|| dtCharArray[i] == '3' || dtCharArray[i] == '4'
-					|| dtCharArray[i] == '5' || dtCharArray[i] == '6'
-					|| dtCharArray[i] == '7' || dtCharArray[i] == '8'
-					|| dtCharArray[i] == '9') {
+			if (dtCharArray[i] == '0' || dtCharArray[i] == '1' 
+					|| dtCharArray[i] == '2' || dtCharArray[i] == '3' 
+					|| dtCharArray[i] == '4' || dtCharArray[i] == '5' 
+					|| dtCharArray[i] == '6' || dtCharArray[i] == '7' 
+					|| dtCharArray[i] == '8' || dtCharArray[i] == '9') {
 				numberCount++;
 			}
 		}
@@ -365,17 +364,6 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 			return false;
 		}
 		
-	}
-	
-	
-	/** Checks if calculator is working.  */
-	public boolean isWorking(String displayText) {
-		if (!displayText.equals("ERROR") || !displayText.equals("")) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 	
 	
@@ -393,56 +381,81 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 	}
 	
 	
+	/** Checks if calculator is working.  */
+	public boolean isWorking(String displayText) {
+		if (!displayText.equals("ERROR") || !displayText.equals("")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
 	public void Operator() {
 		String displayText = display.getText(); 
 		num1 = Double.parseDouble(displayText);	
 		display.setText("0");
+		add.setEnabled(false);
+		subtract.setEnabled(false);
+		multiply.setEnabled(false);
+		divide.setEnabled(false);
+		root.setEnabled(false);
+		power.setEnabled(false);
 		clear.setEnabled(true);
+		equal.setEnabled(true);
 	}
 	
 	
 	public String Reformat() {
 		
+		// Get the digits of the rounded (round down to int) num1.  
+		int num1Int = (int) Math.floor(Math.abs(num1));
+		String num1String = num1Int + "";
+		int digits = num1String.length();
+		
 		String num9d;
 		
-		if (num1 < 10) {
-			DecimalFormat df = new DecimalFormat("0.00000000");
-			num9d = df.format(num1);
-		}
-		else if (num1 < 100) {
-			DecimalFormat df = new DecimalFormat("0.0000000");
-			num9d = df.format(num1);
-		}
-		else if (num1 < 1000) {
-			DecimalFormat df = new DecimalFormat("0.000000");
-			num9d = df.format(num1);
-		}
-		else if (num1 < 10000) {
-			DecimalFormat df = new DecimalFormat("0.00000");
-			num9d = df.format(num1);
-		}
-		else if (num1 < 100000) {
-			DecimalFormat df = new DecimalFormat("0.0000");
-			num9d = df.format(num1);
-		}
-		else if (num1 < 1000000) {
-			DecimalFormat df = new DecimalFormat("0.000");
-			num9d = df.format(num1);
-		}
-		else if (num1 < 10000000) {
-			DecimalFormat df = new DecimalFormat("0.00");
-			num9d = df.format(num1);
-		}
-		else if (num1 < 100000000) {
-			DecimalFormat df = new DecimalFormat("0.0");
-			num9d = df.format(num1);
-		}
-		else { // if (num1 < 1000000000)
-			DecimalFormat df = new DecimalFormat("0");
-			num9d = df.format(num1);
+		switch(digits) {
+			case 1:
+				DecimalFormat df1 = new DecimalFormat("0.00000000");
+				num9d = df1.format(num1);
+				break;
+			case 2:
+				DecimalFormat df2 = new DecimalFormat("0.0000000");
+				num9d = df2.format(num1);
+				break;
+			case 3:
+				DecimalFormat df3 = new DecimalFormat("0.000000");
+				num9d = df3.format(num1);
+				break;
+			case 4:
+				DecimalFormat df4 = new DecimalFormat("0.00000");
+				num9d = df4.format(num1);
+				break;
+			case 5:
+				DecimalFormat df5 = new DecimalFormat("0.0000");
+				num9d = df5.format(num1);
+				break;
+			case 6:
+				DecimalFormat df6 = new DecimalFormat("0.000");
+				num9d = df6.format(num1);
+				break;
+			case 7:
+				DecimalFormat df7 = new DecimalFormat("0.00");
+				num9d = df7.format(num1);
+				break;
+			case 8:
+				DecimalFormat df8 = new DecimalFormat("0.0");
+				num9d = df8.format(num1);
+				break;
+			default: // case 9.  
+				DecimalFormat df9 = new DecimalFormat("0");
+				num9d = df9.format(num1);
+				break;
 		}
 		
-		String[] num9dSplit = num9d.split(".", 2);
+		String[] num9dSplit = num9d.split("\\.", 2);
 		String num9dWhole = num9dSplit[0];
 		String num9dFractions = num9dSplit[1];
 		for (int i = (num9dFractions.length() - 1); i >= 0; i--) {
