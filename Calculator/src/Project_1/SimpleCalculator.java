@@ -43,9 +43,9 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 	JTextField display = new JTextField("", 12); // Number
 	Font font = new Font("Digital-7", Font.BOLD, 20);
 	
-	String operator;
-	double num1;
-	double num2;
+	String operator = "";
+	double num1 = 0;
+	double num2 = 0;
 	
 	
 	SimpleCalculator() {
@@ -260,9 +260,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 						Operator();
 						break;
 					case "=":
-						if (operator.equals("+") || operator.equals("-") || 
-							operator.equals("*") || operator.equals("/") || 
-							operator.equals("root") || operator.equals("power")) {
+						if (!operator.equals("")) {
 							try {
 								num2 = Double.parseDouble(displayText);
 								String result; 
